@@ -82,5 +82,12 @@ namespace ToDoApplication.Controllers
 
         // Add check point with some action method
         //demo changes
+        [HttpGet]
+        public async Task<IActionResult> Check()
+        {
+            var todos = await _commonRepository.GetAllAsync();
+            return Ok();
+        }
+        
     }
 }
