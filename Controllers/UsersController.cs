@@ -188,7 +188,5 @@ namespace ToDoApplication.Controllers
 
                 return Accepted(new {status = true, message = "password has be changed successfully"});
         }
-
-
     }
 }
