@@ -52,6 +52,18 @@ namespace ToDoApplication.Controllers
             return BadRequest(new { status = false, message = $"Todo not found with id {id}" });
         }
 
-        // create getById Action method here use id
+        // create getById Action method here
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var todo = await _commonRepository.GetByIdAsync(id);
+            if (todo == null)
+            {
+                return NotFound(new { status = false, message = $"Todo with id {id} not found " });
+            }
+            return Ok(new { status = true, data = todo });
+        }
     }
 }
