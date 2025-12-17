@@ -66,6 +66,6 @@ namespace ToDoApplication.Controllers
             return Ok(new { status = true, data = todo });
         }
 
-        // create getAll here
+        // create getAll Action method here
     }
 }
