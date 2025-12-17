@@ -24,19 +24,32 @@ namespace ToDoApplication.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateTodo([FromBody] TodoDto dto)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             var todo = _mapper.Map<Todo>(dto);
             var createdTodo = await _commonRepository.AddAsync(todo);
-            if(createdTodo == null)
+            if (createdTodo == null)
             {
-                return BadRequest(new { status = false, message = "Something Went wrong. Could not create todo"});
+                return BadRequest(new { status = false, message = "Something Went wrong. Could not create todo" });
             }
-            return Ok(new { status = true, message = "Todo created successfully", data = createdTodo } );
+            return Ok(new { status = true, message = "Todo created successfully", data = createdTodo });
         }
 
         // create Delete action Method here
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteTodo(int id)
+        {
+            var result = await _commonRepository.DeleteAsync(id);
+            if (result)
+            {
+                return Ok(new { status = true, message = "Todo deleted successfully" });
+            }
+            return BadRequest(new { status = false, message = $"Todo not found with id {id}" });
+        }
     }
 }
