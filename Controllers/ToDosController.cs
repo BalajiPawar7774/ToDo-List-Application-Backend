@@ -53,7 +53,7 @@ namespace ToDoApplication.Controllers
         }
 
         // create getById Action method here
-        [HttpGet]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
@@ -66,6 +66,18 @@ namespace ToDoApplication.Controllers
             return Ok(new { status = true, data = todo });
         }
 
-        // create getAll Action method here
+        // create getAll here
+        [HttpGet("getAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAll()
+        {
+            var todos = await _commonRepository.GetAllAsync();
+            if (todos == null || todos.Count == 0)
+            {
+                return NotFound(new { status = false, message = "No todoes available"});
+            }
+            return Ok(new { status = true, data = todos });
+        }
     }
 }
