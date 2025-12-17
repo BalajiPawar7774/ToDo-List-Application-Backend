@@ -85,6 +85,11 @@ namespace ToDoApplication.Repositories
             return todoes;
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
 
     }
 }

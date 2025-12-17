@@ -164,7 +164,30 @@ namespace ToDoApplication.Controllers
 
 
         // create a password change action method here 
+        [HttpPost("changePassword")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await _userRepository.GetUserByEmail(dto.Email);
+            if (user == null)
+            {
+                return NotFound(new {status = false, message = $"cannot find the user with the email provided"});
+            }
+            if(user.Password != dto.OldPassword)
+            {
+                return BadRequest(new {status = false, message = "Provided Old password does not match with the password frm user"});
+            }
 
+                await _commonRepository.UpdateAsync(user.UserId, user);
+
+                return Accepted(new {status = true, message = "password has be changed successfully"});
+        }
 
 
     }
