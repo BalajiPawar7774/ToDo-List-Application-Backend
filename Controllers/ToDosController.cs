@@ -65,5 +65,7 @@ namespace ToDoApplication.Controllers
             }
             return Ok(new { status = true, data = todo });
         }
+
+        // create getAll here
     }
 }
