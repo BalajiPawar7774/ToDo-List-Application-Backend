@@ -80,6 +80,6 @@ namespace ToDoApplication.Controllers
             return Ok(new { status = true, data = todos });
         }
 
-        // Add check point
+        // Add check point with some action method
     }
 }
