@@ -36,5 +36,7 @@ namespace ToDoApplication.Controllers
             }
             return Ok(new { status = true, message = "Todo created successfully", data = createdTodo } );
         }
+
+        // create Delete action Method here
     }
 }
