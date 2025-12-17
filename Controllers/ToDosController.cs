@@ -32,7 +32,7 @@ namespace ToDoApplication.Controllers
             var createdTodo = await _commonRepository.AddAsync(todo);
             if (createdTodo == null)
             {
-                return BadRequest(new { status = false, message = "Something Went wrong. Could not create todo" });
+                return BadRequest(new { status = false, message = "Something went wrong. Could not create todo" });
             }
             return Ok(new { status = true, message = "Todo created successfully", data = createdTodo });
         }
@@ -67,7 +67,7 @@ namespace ToDoApplication.Controllers
         }
 
         // create getAll here
-        [HttpGet("getAll")]
+        [HttpGet("GetAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll()
